@@ -18,13 +18,12 @@ extension AlgoCategoryLabel on AlgoCategory {
 
   String get icon => switch (this) {
         AlgoCategory.sorting => '🔀',
-        AlgoCategory.searching => '🔎',
+        AlgoCategory.searching => '🔍',
         AlgoCategory.dataStructures => '🧱',
         AlgoCategory.graphs => '🕸️',
         AlgoCategory.trees => '🌳',
       };
 }
-
 extension DifficultyLabel on Difficulty {
   String get label => switch (this) {
         Difficulty.easy => 'Лёгкий',
