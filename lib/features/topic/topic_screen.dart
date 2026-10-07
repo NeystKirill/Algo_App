@@ -5,6 +5,7 @@ import '../../app/theme/app_colors.dart';
 import '../../core/models/algo_step.dart';
 import '../../core/models/algorithm_info.dart';
 import '../../core/models/graph_models.dart';
+import '../compiler/compiler_view.dart';
 import '../settings/settings_provider.dart';
 import '../visualizer/array_visualizer.dart';
 import '../visualizer/graph_visualizer.dart';
@@ -23,7 +24,7 @@ class TopicScreen extends ConsumerStatefulWidget {
 
 class _TopicScreenState extends ConsumerState<TopicScreen>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabController = TabController(length: 3, vsync: this);
+  late final TabController _tabController = TabController(length: 4, vsync: this);
   List<AlgoStep>? _arraySteps;
   GraphVisualization? _graphVisualization;
   late final PlayerController _player;
@@ -69,6 +70,7 @@ class _TopicScreenState extends ConsumerState<TopicScreen>
             Tab(text: 'Теория'),
             Tab(text: 'Визуализация'),
             Tab(text: 'Код'),
+            Tab(text: 'Компилятор'),
           ],
         ),
       ),
@@ -88,6 +90,10 @@ class _TopicScreenState extends ConsumerState<TopicScreen>
               algorithm: algorithm,
               initialLanguage: ref.read(settingsProvider).codeLanguage,
             ),
+          ),
+          CompilerView(
+            algorithm: algorithm,
+            initialLanguage: ref.read(settingsProvider).codeLanguage,
           ),
         ],
       ),

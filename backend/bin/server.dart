@@ -6,10 +6,13 @@ import 'package:shelf_router/shelf_router.dart';
 
 import '../lib/db.dart';
 import '../lib/routes/algorithms.dart';
+import '../lib/routes/execute.dart';
 
 Future<void> main() async {
   final db = await openConnection();
-  final router = Router()..mount('/', algorithmsRouter(db));
+  final router = Router()
+    ..mount('/', algorithmsRouter(db))
+    ..mount('/', executeRouter());
   final handler = const Pipeline().addMiddleware(logRequests()).addHandler(router.call);
 
   final port = int.parse(Platform.environment['PORT'] ?? '8080');
