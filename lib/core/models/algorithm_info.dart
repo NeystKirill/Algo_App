@@ -15,14 +15,6 @@ extension AlgoCategoryLabel on AlgoCategory {
         AlgoCategory.graphs => 'Графы',
         AlgoCategory.trees => 'Деревья',
       };
-
-  String get icon => switch (this) {
-        AlgoCategory.sorting => '🔀',
-        AlgoCategory.searching => '🔍',
-        AlgoCategory.dataStructures => '🧱',
-        AlgoCategory.graphs => '🕸️',
-        AlgoCategory.trees => '🌳',
-      };
 }
 extension DifficultyLabel on Difficulty {
   String get label => switch (this) {
