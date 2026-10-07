@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/theme/app_colors.dart';
 import '../../core/models/algorithm_info.dart';
-import '../algorithms/registry.dart';
+import '../algorithms/algorithms_provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final _searchController = TextEditingController();
   String _query = '';
 
@@ -25,10 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final algorithms = ref.watch(algorithmsProvider);
 
     final searchResults = _query.isEmpty
         ? <AlgorithmInfo>[]
-        : algorithmRegistry
+        : algorithms
             .where((a) => a.title.toLowerCase().contains(_query.toLowerCase()))
             .toList();
 

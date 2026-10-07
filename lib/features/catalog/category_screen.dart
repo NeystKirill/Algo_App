@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../app/theme/app_colors.dart';
 import '../../core/models/algorithm_info.dart';
-import '../algorithms/registry.dart';
+import '../algorithms/algorithms_provider.dart';
 
 class CategoryScreen extends ConsumerWidget {
   const CategoryScreen({super.key, required this.category});
@@ -14,7 +14,7 @@ class CategoryScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final colors = context.colors;
-    final algorithms = algorithmRegistry.where((a) => a.category == category).toList();
+    final algorithms = ref.watch(algorithmsProvider).where((a) => a.category == category).toList();
 
     return Scaffold(
       appBar: AppBar(title: Text(category.label)),
