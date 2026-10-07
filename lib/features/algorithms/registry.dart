@@ -60,25 +60,6 @@ function bubbleSort(arr) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Какова временная сложность сортировки пузырьком в худшем случае?',
-        options: ['O(n)', 'O(n log n)', 'O(n²)', 'O(1)'],
-        correctIndex: 2,
-        explanation: 'В худшем случае требуется n² сравнений — по проходу на каждый элемент.',
-      ),
-      QuizQuestion(
-        question: 'Что происходит на каждом проходе алгоритма?',
-        options: [
-          'Массив делится пополам',
-          'Самый большой оставшийся элемент "всплывает" в конец',
-          'Выбирается опорный элемент',
-          'Элементы объединяются попарно',
-        ],
-        correctIndex: 1,
-        explanation: 'После каждого прохода очередной наибольший элемент занимает своё место.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'insertion_sort',
@@ -130,19 +111,6 @@ function insertionSort(arr) {
   }
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'На каком принципе основана сортировка вставками?',
-        options: [
-          'Разделяй и властвуй',
-          'Вставка элемента в уже отсортированную часть',
-          'Выбор минимума на каждом шаге',
-          'Сравнение всех пар элементов',
-        ],
-        correctIndex: 1,
-        explanation: 'Каждый новый элемент вставляется на своё место среди отсортированных.',
-      ),
     ],
   ),
   AlgorithmInfo(
@@ -209,25 +177,6 @@ function quickSort(arr, low, high) {
   quickSort(arr, i + 2, high);
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Что такое опорный элемент (pivot)?',
-        options: [
-          'Первый элемент массива всегда',
-          'Элемент, относительно которого массив делится на части',
-          'Самый маленький элемент массива',
-          'Средний индекс массива',
-        ],
-        correctIndex: 1,
-        explanation: 'Опорный элемент используется, чтобы разделить массив на меньшие и большие элементы.',
-      ),
-      QuizQuestion(
-        question: 'Какая сложность у QuickSort в худшем случае?',
-        options: ['O(n log n)', 'O(n²)', 'O(log n)', 'O(n)'],
-        correctIndex: 1,
-        explanation: 'При неудачном выборе опорного элемента сложность деградирует до O(n²).',
-      ),
     ],
   ),
   AlgorithmInfo(
@@ -316,19 +265,6 @@ function merge(arr, low, mid, high) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Какой приём лежит в основе сортировки слиянием?',
-        options: [
-          'Разделяй и властвуй',
-          'Жадный алгоритм',
-          'Динамическое программирование',
-          'Поиск с возвратом',
-        ],
-        correctIndex: 0,
-        explanation: 'Массив рекурсивно делится на части, а затем части сливаются обратно.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'linear_search',
@@ -366,14 +302,6 @@ function linearSearch(arr, target) {
   return -1;
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Нужно ли сортировать массив перед линейным поиском?',
-        options: ['Да, обязательно', 'Нет, не требуется', 'Только для чисел', 'Только для строк'],
-        correctIndex: 1,
-        explanation: 'Линейный поиск проверяет элементы по порядку и не требует сортировки.',
-      ),
     ],
   ),
   AlgorithmInfo(
@@ -431,19 +359,6 @@ function binarySearch(arr, target) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Обязательное условие для бинарного поиска?',
-        options: [
-          'Массив должен быть отсортирован',
-          'Массив должен содержать только чётные числа',
-          'Массив должен быть небольшим',
-          'Условий нет',
-        ],
-        correctIndex: 0,
-        explanation: 'Бинарный поиск делит массив пополам, что работает корректно только на отсортированных данных.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'stack',
@@ -487,14 +402,6 @@ class Stack {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Какой принцип работы у стека?',
-        options: ['FIFO', 'LIFO', 'Случайный доступ', 'Приоритетная очередь'],
-        correctIndex: 1,
-        explanation: 'Стек работает по принципу LIFO — последним пришёл, первым вышел.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'queue',
@@ -537,19 +444,6 @@ class Queue {
   dequeue() { return this.#items.shift(); }
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Какой элемент удаляется первым в очереди?',
-        options: [
-          'Последний добавленный',
-          'Первый добавленный',
-          'Случайный элемент',
-          'Самый большой',
-        ],
-        correctIndex: 1,
-        explanation: 'Очередь работает по принципу FIFO — первым пришёл, первым вышел.',
-      ),
     ],
   ),
   AlgorithmInfo(
@@ -648,19 +542,6 @@ class LinkedList {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Чем связный список отличается от массива?',
-        options: [
-          'Доступ по индексу выполняется за O(1)',
-          'Элементы хранятся не подряд в памяти, а через ссылки',
-          'Он не может расти в размере',
-          'Он всегда быстрее массива',
-        ],
-        correctIndex: 1,
-        explanation: 'Узлы связного списка хранят ссылку на следующий элемент, а не лежат подряд в памяти.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'bfs',
@@ -722,14 +603,6 @@ function bfs(graph, start) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Какую структуру данных использует BFS?',
-        options: ['Стек', 'Очередь', 'Хеш-таблицу', 'Дерево отрезков'],
-        correctIndex: 1,
-        explanation: 'BFS хранит вершины для посещения в очереди, обрабатывая их по порядку добавления.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'dfs',
@@ -776,19 +649,6 @@ function dfs(graph, node, visited = []) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Как обычно реализуется DFS?',
-        options: [
-          'Только итеративно с очередью',
-          'Рекурсивно или с помощью стека',
-          'Только с приоритетной очередью',
-          'DFS нельзя реализовать программно',
-        ],
-        correctIndex: 1,
-        explanation: 'DFS естественно выражается через рекурсию (или явный стек), уходя вглубь перед возвратом.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'tree_preorder',
@@ -827,19 +687,6 @@ function preOrder(node, visit) {
   preOrder(node.right, visit);
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'В каком порядке pre-order посещает узел и поддеревья?',
-        options: [
-          'Левое, узел, правое',
-          'Узел, левое, правое',
-          'Левое, правое, узел',
-          'Правое, узел, левое',
-        ],
-        correctIndex: 1,
-        explanation: 'Pre-order: сначала сам узел, затем левое поддерево, затем правое.',
-      ),
     ],
   ),
   AlgorithmInfo(
@@ -881,19 +728,6 @@ function inOrder(node, visit) {
 }
 '''),
     ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Что выдаёт in-order обход для бинарного дерева поиска?',
-        options: [
-          'Значения в случайном порядке',
-          'Значения по убыванию',
-          'Значения по возрастанию',
-          'Только листья дерева',
-        ],
-        correctIndex: 2,
-        explanation: 'In-order обход бинарного дерева поиска возвращает элементы в отсортированном порядке.',
-      ),
-    ],
   ),
   AlgorithmInfo(
     id: 'tree_postorder',
@@ -933,14 +767,6 @@ function postOrder(node, visit) {
   visit(node.value);
 }
 '''),
-    ],
-    quiz: const [
-      QuizQuestion(
-        question: 'Когда посещается сам узел при post-order обходе?',
-        options: ['Первым', 'Между поддеревьями', 'Последним', 'Обход не посещает узлы'],
-        correctIndex: 2,
-        explanation: 'Post-order сначала обходит оба поддерева и лишь затем посещает сам узел.',
-      ),
     ],
   ),
 ];

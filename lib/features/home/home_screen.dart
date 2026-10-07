@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/theme/app_colors.dart';
 import '../../core/models/algorithm_info.dart';
 import '../algorithms/registry.dart';
-import '../progress/progress_provider.dart';
 
-class HomeScreen extends ConsumerStatefulWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends ConsumerState<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   final _searchController = TextEditingController();
   String _query = '';
 
@@ -27,7 +25,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final progress = ref.watch(progressProvider);
 
     final searchResults = _query.isEmpty
         ? <AlgorithmInfo>[]
@@ -83,12 +80,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             for (final category in AlgoCategory.values)
               _CategoryCard(
                 category: category,
-                progress: progress.completionRate(
-                  algorithmRegistry
-                      .where((a) => a.category == category)
-                      .map((a) => a.id)
-                      .toList(),
-                ),
                 onTap: () => context.push('/category/${category.name}'),
               ),
           ],
@@ -99,10 +90,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 }
 
 class _CategoryCard extends StatelessWidget {
-  const _CategoryCard({required this.category, required this.progress, required this.onTap});
+  const _CategoryCard({required this.category, required this.onTap});
 
   final AlgoCategory category;
-  final double progress;
   final VoidCallback onTap;
 
   @override
@@ -127,16 +117,6 @@ class _CategoryCard extends StatelessWidget {
                         color: colors.textPrimary,
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: LinearProgressIndicator(
-                        value: progress,
-                        minHeight: 6,
-                        backgroundColor: colors.surfaceVariant,
-                        color: colors.primary,
                       ),
                     ),
                   ],

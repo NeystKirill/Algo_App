@@ -31,20 +31,6 @@ class CodeSample {
   const CodeSample({required this.language, required this.code});
 }
 
-class QuizQuestion {
-  final String question;
-  final List<String> options;
-  final int correctIndex;
-  final String explanation;
-
-  const QuizQuestion({
-    required this.question,
-    required this.options,
-    required this.correctIndex,
-    required this.explanation,
-  });
-}
-
 class AlgorithmInfo {
   final String id;
   final String title;
@@ -54,7 +40,6 @@ class AlgorithmInfo {
   final String timeComplexity;
   final String spaceComplexity;
   final List<CodeSample> codeSamples;
-  final List<QuizQuestion> quiz;
   final VisualizationKind visualizationKind;
   final List<AlgoStep> Function()? buildArraySteps;
   final GraphVisualization Function()? buildGraphVisualization;
@@ -68,7 +53,6 @@ class AlgorithmInfo {
     required this.timeComplexity,
     required this.spaceComplexity,
     required this.codeSamples,
-    required this.quiz,
     required this.visualizationKind,
     this.buildArraySteps,
     this.buildGraphVisualization,

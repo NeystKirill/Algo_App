@@ -5,8 +5,6 @@ import '../../app/theme/app_colors.dart';
 import '../../core/models/algo_step.dart';
 import '../../core/models/algorithm_info.dart';
 import '../../core/models/graph_models.dart';
-import '../progress/progress_provider.dart';
-import '../quiz/quiz_screen.dart';
 import '../settings/settings_provider.dart';
 import '../visualizer/array_visualizer.dart';
 import '../visualizer/graph_visualizer.dart';
@@ -25,7 +23,7 @@ class TopicScreen extends ConsumerStatefulWidget {
 
 class _TopicScreenState extends ConsumerState<TopicScreen>
     with SingleTickerProviderStateMixin {
-  late final TabController _tabController = TabController(length: 4, vsync: this);
+  late final TabController _tabController = TabController(length: 3, vsync: this);
   List<AlgoStep>? _arraySteps;
   GraphVisualization? _graphVisualization;
   late final PlayerController _player;
@@ -59,25 +57,10 @@ class _TopicScreenState extends ConsumerState<TopicScreen>
   @override
   Widget build(BuildContext context) {
     final algorithm = widget.algorithm;
-    final progress = ref.watch(progressProvider);
-    final progressNotifier = ref.read(progressProvider.notifier);
-    final isFavorite = progress.favorites.contains(algorithm.id);
-    final isCompleted = progress.completed.contains(algorithm.id);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(algorithm.title),
-        actions: [
-          IconButton(
-            onPressed: () => progressNotifier.toggleFavorite(algorithm.id),
-            icon: Icon(isFavorite ? Icons.star : Icons.star_border),
-          ),
-          if (isCompleted)
-            const Padding(
-              padding: EdgeInsets.only(right: 8),
-              child: Icon(Icons.check_circle, color: Colors.green),
-            ),
-        ],
         bottom: TabBar(
           controller: _tabController,
           isScrollable: true,
@@ -86,7 +69,6 @@ class _TopicScreenState extends ConsumerState<TopicScreen>
             Tab(text: 'Теория'),
             Tab(text: 'Визуализация'),
             Tab(text: 'Код'),
-            Tab(text: 'Практика'),
           ],
         ),
       ),
@@ -106,10 +88,6 @@ class _TopicScreenState extends ConsumerState<TopicScreen>
               algorithm: algorithm,
               initialLanguage: ref.read(settingsProvider).codeLanguage,
             ),
-          ),
-          QuizView(
-            questions: algorithm.quiz,
-            onCompleted: () => progressNotifier.markCompleted(algorithm.id),
           ),
         ],
       ),
