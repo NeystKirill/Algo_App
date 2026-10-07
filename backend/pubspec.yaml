@@ -1,0 +1,12 @@
+name: algo_learning_backend
+description: REST API backend for algo_learning_app, backed by Supabase Postgres.
+publish_to: 'none'
+version: 1.0.0
+
+environment:
+  sdk: ^3.13.2
+
+dependencies:
+  shelf: ^1.4.1
+  shelf_router: ^1.1.4
+  postgres: ^3.4.5
