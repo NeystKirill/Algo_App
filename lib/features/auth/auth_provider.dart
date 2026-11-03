@@ -57,12 +57,16 @@ class AuthNotifier extends Notifier<AuthSessionState> {
     );
   }
 
-  Future<void> signUp({
+  /// Returns the raw [AuthResponse] so the caller can tell whether the new
+  /// account is already signed in or still needs email confirmation (in
+  /// which case `response.session` is null and no `onAuthStateChange` event
+  /// fires, so the UI must show its own feedback rather than wait silently).
+  Future<AuthResponse> signUp({
     required String email,
     required String password,
     String? captchaToken,
-  }) async {
-    await Supabase.instance.client.auth.signUp(
+  }) {
+    return Supabase.instance.client.auth.signUp(
       email: email,
       password: password,
       captchaToken: captchaToken,

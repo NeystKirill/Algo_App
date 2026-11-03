@@ -18,14 +18,18 @@ GoRouter buildRouter(
   required Listenable refreshListenable,
 }) =>
     GoRouter(
-      initialLocation: '/',
+      initialLocation: '/login',
       refreshListenable: refreshListenable,
+      // The app is gated behind auth: a signed-out visitor only ever sees
+      // login/register, and landing there first (then profile) is the
+      // entry point — the rest of the app (home, categories, topics,
+      // settings) only opens up once signed in.
       redirect: (context, state) {
         final authState = ref.read(authProvider);
         final goingToAuthPages =
             state.matchedLocation == '/login' || state.matchedLocation == '/register';
 
-        if (authState is AuthSessionSignedOut && state.matchedLocation == '/profile') {
+        if (authState is AuthSessionSignedOut && !goingToAuthPages) {
           return '/login';
         }
         if (authState is AuthSessionSignedIn && goingToAuthPages) {

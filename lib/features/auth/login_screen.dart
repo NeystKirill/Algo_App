@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../app/theme/app_colors.dart';
 import '../../core/api_config.dart';
 import '../auth/auth_provider.dart';
-import 'widgets/auth_header.dart';
+import 'widgets/auth_scaffold.dart';
 import 'widgets/auth_text_field.dart';
 import 'widgets/turnstile_widget.dart';
 
@@ -61,6 +61,18 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         _captchaToken = null;
         _turnstileNonce++;
       });
+    } catch (error) {
+      // Anything other than AuthException (network/CORS failure, wrong
+      // Supabase URL, etc.) would otherwise be silently swallowed, leaving
+      // the user staring at an unresponsive form with no feedback.
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Не удалось войти: $error')),
+      );
+      setState(() {
+        _captchaToken = null;
+        _turnstileNonce++;
+      });
     } finally {
       if (mounted) {
         setState(() => _loading = false);
@@ -72,83 +84,78 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     final colors = context.colors;
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Вход')),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 400),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const AuthHeader(subtitle: 'Продолжите обучение с того же места'),
-                  const SizedBox(height: 32),
-                  AuthTextField(
-                    label: 'Email',
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Введите email';
-                      }
-                      if (!value.contains('@')) {
-                        return 'Некорректный email';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  AuthTextField(
-                    label: 'Пароль',
-                    controller: _passwordController,
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Введите пароль';
-                      }
-                      if (value.length < 6) {
-                        return 'Минимум 6 символов';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: colors.border),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(vertical: 4),
-                    child: TurnstileWidget(
-                      key: ValueKey(_turnstileNonce),
-                      siteKey: turnstileSiteKey,
-                      onToken: (token) => setState(() => _captchaToken = token),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  FilledButton(
-                    onPressed: _loading ? null : _submit,
-                    child: _loading
-                        ? const SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Text('Войти'),
-                  ),
-                  const SizedBox(height: 8),
-                  TextButton(
-                    onPressed: _loading ? null : () => context.push('/register'),
-                    child: const Text('Нет аккаунта? Зарегистрироваться'),
-                  ),
-                ],
+    return AuthScaffold(
+      subtitle: 'Продолжите обучение с того же места',
+      tagline: 'Визуализация алгоритмов и структур данных шаг за шагом',
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              'Вход',
+              style: TextStyle(
+                color: colors.textPrimary,
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
               ),
             ),
-          ),
+            const SizedBox(height: 20),
+            AuthTextField(
+              label: 'Email',
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Введите email';
+                }
+                if (!value.contains('@')) {
+                  return 'Некорректный email';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 16),
+            AuthTextField(
+              label: 'Пароль',
+              controller: _passwordController,
+              obscureText: true,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Введите пароль';
+                }
+                if (value.length < 6) {
+                  return 'Минимум 6 символов';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 20),
+            Center(
+              child: TurnstileWidget(
+                key: ValueKey(_turnstileNonce),
+                siteKey: turnstileSiteKey,
+                onToken: (token) => setState(() => _captchaToken = token),
+              ),
+            ),
+            const SizedBox(height: 20),
+            FilledButton(
+              onPressed: _loading ? null : _submit,
+              child: _loading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : const Text('Войти'),
+            ),
+            const SizedBox(height: 4),
+            TextButton(
+              onPressed: _loading ? null : () => context.push('/register'),
+              child: const Text('Нет аккаунта? Зарегистрироваться'),
+            ),
+          ],
         ),
       ),
     );

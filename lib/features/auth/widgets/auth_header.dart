@@ -7,9 +7,18 @@ import '../../../app/theme/app_colors.dart';
 /// colors as [ArrayVisualizer]) as a small animated "frozen mid-sort" motif,
 /// so the auth flow reads as part of this product rather than generic chrome.
 class AuthHeader extends StatefulWidget {
-  const AuthHeader({super.key, required this.subtitle});
+  const AuthHeader({super.key, required this.subtitle, this.tagline, this.scale = 1.0});
 
   final String subtitle;
+
+  /// Extra line shown under [subtitle], describing what the product
+  /// actually does — used in the wide-screen brand panel, where there's
+  /// room for it.
+  final String? tagline;
+
+  /// Size multiplier so the same motif can be the small header above a
+  /// mobile form or the large centerpiece of the wide-screen brand panel.
+  final double scale;
 
   @override
   State<AuthHeader> createState() => _AuthHeaderState();
@@ -50,8 +59,11 @@ class _AuthHeaderState extends State<AuthHeader> with SingleTickerProviderStateM
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final scale = widget.scale;
+    final barWidth = 12.0 * scale;
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         AnimatedBuilder(
           animation: _progress,
@@ -62,14 +74,16 @@ class _AuthHeaderState extends State<AuthHeader> with SingleTickerProviderStateM
               children: [
                 for (var i = 0; i < _heights.length; i++)
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 3),
+                    padding: EdgeInsets.symmetric(horizontal: 3 * scale),
                     child: Container(
-                      width: 12,
-                      height: _heights[i] * _progress.value,
+                      width: barWidth,
+                      height: _heights[i] * scale * _progress.value,
                       decoration: BoxDecoration(
                         color: _colorFor(i, colors),
-                        borderRadius: BorderRadius.circular(6),
-                        border: i == 2 ? Border.all(color: colors.marker, width: 2) : null,
+                        borderRadius: BorderRadius.circular(barWidth / 2),
+                        border: i == 2
+                            ? Border.all(color: colors.marker, width: 2 * scale)
+                            : null,
                       ),
                     ),
                   ),
@@ -77,20 +91,33 @@ class _AuthHeaderState extends State<AuthHeader> with SingleTickerProviderStateM
             );
           },
         ),
-        const SizedBox(height: 16),
+        SizedBox(height: 16 * scale),
         Text(
           'Algo & DS',
           style: TextStyle(
             color: colors.textPrimary,
-            fontSize: 22,
+            fontSize: 22 * scale,
             fontWeight: FontWeight.w700,
           ),
         ),
-        const SizedBox(height: 4),
+        SizedBox(height: 4 * scale),
         Text(
           widget.subtitle,
-          style: TextStyle(color: colors.textSecondary, fontSize: 14),
+          textAlign: TextAlign.center,
+          style: TextStyle(color: colors.textSecondary, fontSize: 14 * scale.clamp(1, 1.3)),
         ),
+        if (widget.tagline != null) ...[
+          SizedBox(height: 10 * scale),
+          Text(
+            widget.tagline!,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: colors.textSecondary,
+              fontSize: 14 * scale.clamp(1, 1.2),
+              height: 1.4,
+            ),
+          ),
+        ],
       ],
     );
   }

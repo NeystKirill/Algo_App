@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../app/theme/app_colors.dart';
 import 'auth_provider.dart';
@@ -157,6 +158,12 @@ class _ProfileBodyState extends ConsumerState<_ProfileBody> {
                       ],
                     ],
                   ),
+                ),
+                const SizedBox(height: 20),
+                FilledButton.icon(
+                  onPressed: () => context.go('/'),
+                  icon: const Icon(Icons.arrow_forward),
+                  label: const Text('Перейти к алгоритмам'),
                 ),
                 const SizedBox(height: 24),
                 if (_error != null) ...[
