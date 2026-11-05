@@ -23,6 +23,9 @@ const COLORS = {
 
 const SCREEN_W = 390;
 const GAP_X = 80;
+// Set to "Inter" in main() if "Roboto Mono" fails to load, so code blocks
+// degrade gracefully instead of crashing the whole generation.
+let MONO_FONT = "Roboto Mono";
 
 function hex(h) {
   const n = h.replace("#", "");
@@ -84,7 +87,9 @@ function appendFill(parent, child) {
 function text(chars, opts) {
   opts = opts || {};
   const t = figma.createText();
-  t.fontName = { family: "Inter", style: opts.weight || "Regular" };
+  t.fontName = opts.mono
+    ? { family: MONO_FONT, style: "Regular" }
+    : { family: "Inter", style: opts.weight || "Regular" };
   t.characters = chars;
   t.fontSize = opts.size || 14;
   t.fills = solid(opts.color || COLORS.textPrimary);
@@ -135,19 +140,29 @@ const ICON = {
 // rotated-primitive reconstructions of a specific vendor glyph — simplified
 // generic stand-ins for gear/person/search/eye).
 function iconGear(color) {
-  const outer = figma.createEllipse();
-  outer.resize(18, 18);
-  outer.fills = [];
-  outer.strokes = solid(color);
-  outer.strokeWeight = 2;
-  const inner = figma.createEllipse();
-  inner.resize(6, 6);
-  inner.x = 6;
-  inner.y = 6;
-  inner.fills = [];
-  inner.strokes = solid(color);
-  inner.strokeWeight = 2;
-  const g = figma.group([outer, inner], figma.currentPage);
+  // "Sliders" style settings glyph (two adjustable rows) — reads clearly at
+  // small sizes, unlike a true gear, which needs teeth too fine to render
+  // reliably from hand-authored vector primitives at 22px.
+  const lines = vectorIcon("settings_lines", "M3 8 L21 8 M3 16 L21 16", {
+    color,
+    size: 22,
+    strokeWeight: 2,
+  });
+  const knob1 = figma.createEllipse();
+  knob1.resize(5, 5);
+  knob1.x = 7;
+  knob1.y = 5.5;
+  knob1.fills = solid(color);
+  knob1.strokes = solid(COLORS.background);
+  knob1.strokeWeight = 1.5;
+  const knob2 = figma.createEllipse();
+  knob2.resize(5, 5);
+  knob2.x = 13;
+  knob2.y = 13.5;
+  knob2.fills = solid(color);
+  knob2.strokes = solid(COLORS.background);
+  knob2.strokeWeight = 1.5;
+  const g = figma.group([lines, knob1, knob2], figma.currentPage);
   g.name = "settings";
   g.resize(22, 22);
   return g;
@@ -182,15 +197,17 @@ function iconSearch(color) {
   return g;
 }
 function iconEye(color) {
-  const outline = vectorIcon(
-    "eye_outline",
-    "M2 12 C2 12 6 5 12 5 C18 5 22 12 22 12 C22 12 18 19 12 19 C6 19 2 12 2 12 Z",
-    { color, size: 22 }
-  );
+  // Symmetric lens shape: one cubic curve for the top lid, one for the
+  // bottom, meeting at the two corners — simpler and more reliable than a
+  // multi-segment outline, and reads clearly as an eye at 22px.
+  const outline = vectorIcon("eye_outline", "M3 12 C7 5 17 5 21 12 C17 19 7 19 3 12 Z", {
+    color,
+    size: 22,
+  });
   const pupil = figma.createEllipse();
-  pupil.resize(5, 5);
-  pupil.x = 8.5;
-  pupil.y = 9.5;
+  pupil.resize(6, 6);
+  pupil.x = 9;
+  pupil.y = 9;
   pupil.fills = solid(color);
   const g = figma.group([outline, pupil], figma.currentPage);
   g.name = "eye";
@@ -811,7 +828,7 @@ function buildTopicCompiler() {
   appendFill(body, editor);
   const code = text(
     "void main() {\n  var arr = [5, 3, 8, 1];\n  for (var i = 0; i < arr.length; i++) {\n    // bubble sort step\n  }\n  print(arr);\n}",
-    { size: 12, color: COLORS.textPrimary }
+    { size: 12, color: COLORS.textPrimary, mono: true }
   );
   editor.appendChild(code);
 
@@ -820,7 +837,7 @@ function buildTopicCompiler() {
 
   const output = frame("output", { direction: "VERTICAL", pad: 12, fill: COLORS.surfaceVariant, radius: 12 });
   appendFill(body, output);
-  output.appendChild(text("[1, 3, 5, 8]", { size: 12, color: COLORS.textPrimary }));
+  output.appendChild(text("[1, 3, 5, 8]", { size: 12, color: COLORS.textPrimary, mono: true }));
 
   return { frame: s, backIcon, tabRefs };
 }
@@ -912,6 +929,11 @@ async function main() {
     figma.loadFontAsync({ family: "Inter", style: "Medium" }),
     figma.loadFontAsync({ family: "Inter", style: "Bold" }),
   ]);
+  try {
+    await figma.loadFontAsync({ family: "Roboto Mono", style: "Regular" });
+  } catch (e) {
+    MONO_FONT = "Inter"; // fall back rather than abort the whole run
+  }
 
   const page = figma.currentPage;
 
