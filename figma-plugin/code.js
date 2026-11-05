@@ -119,16 +119,16 @@ function vectorIcon(name, pathData, opts) {
 // paths (never rotated primitives), per icon-import best practice.
 const ICON = {
   chevronRight: (color) => vectorIcon("chevron_right", "M9 6 L15 12 L9 18", { color, size: 22 }),
-  arrowBack: (color) => vectorIcon("arrow_back", "M15 6 L9 12 L15 18 M9 12 H19", { color, size: 22 }),
+  arrowBack: (color) => vectorIcon("arrow_back", "M15 6 L9 12 L15 18 M9 12 L19 12", { color, size: 22 }),
   arrowForward: (color) =>
-    vectorIcon("arrow_forward", "M5 12 H19 M13 6 L19 12 L13 18", { color, size: 22 }),
+    vectorIcon("arrow_forward", "M5 12 L19 12 M13 6 L19 12 L13 18", { color, size: 22 }),
   logout: (color) =>
-    vectorIcon("logout", "M10 5 H5 V19 H10 M16 16 L20 12 L16 8 M9 12 H20", { color, size: 22 }),
+    vectorIcon("logout", "M10 5 L5 5 L5 19 L10 19 M16 16 L20 12 L16 8 M9 12 L20 12", { color, size: 22 }),
   play: (color) => vectorIcon("play", "M7 5 L19 12 L7 19 Z", { color, size: 20, fill: true }),
   skipNext: (color) =>
-    vectorIcon("skip_next", "M6 5 L15 12 L6 19 Z M17 5 H19 V19 H17 Z", { color, size: 20, fill: true }),
+    vectorIcon("skip_next", "M6 5 L15 12 L6 19 Z M17 5 L19 5 L19 19 L17 19 Z", { color, size: 20, fill: true }),
   skipPrev: (color) =>
-    vectorIcon("skip_prev", "M18 5 L9 12 L18 19 Z M5 5 H7 V19 H5 Z", { color, size: 20, fill: true }),
+    vectorIcon("skip_prev", "M18 5 L9 12 L18 19 Z M5 5 L7 5 L7 19 L5 19 Z", { color, size: 20, fill: true }),
 };
 
 // Small composite icons built from basic shapes grouped together (not
