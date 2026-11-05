@@ -12,6 +12,10 @@ Future<Connection> openConnection() {
       username: env['SUPABASE_DB_USER'] ?? 'postgres',
       password: env['SUPABASE_DB_PASSWORD']!,
     ),
-    settings: const ConnectionSettings(sslMode: SslMode.require),
+    // Local `supabase start` Postgres doesn't terminate TLS; set
+    // SUPABASE_DB_SSL=disable for it, leave unset (require) for hosted.
+    settings: ConnectionSettings(
+      sslMode: env['SUPABASE_DB_SSL'] == 'disable' ? SslMode.disable : SslMode.require,
+    ),
   );
 }
