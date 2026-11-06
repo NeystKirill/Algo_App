@@ -39,6 +39,12 @@ void bubbleSort(List<int> arr) {
     }
   }
 }
+
+void main() {
+  final arr = [8, 3, 9, 1, 6, 4, 2];
+  bubbleSort(arr);
+  print(arr);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def bubble_sort(arr):
@@ -47,6 +53,11 @@ def bubble_sort(arr):
         for j in range(n - 1 - i):
             if arr[j] > arr[j + 1]:
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
+
+
+arr = [8, 3, 9, 1, 6, 4, 2]
+bubble_sort(arr)
+print(arr)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function bubbleSort(arr) {
@@ -58,6 +69,10 @@ function bubbleSort(arr) {
     }
   }
 }
+
+const arr = [8, 3, 9, 1, 6, 4, 2];
+bubbleSort(arr);
+console.log(arr);
 '''),
     ],
   ),
@@ -87,6 +102,12 @@ void insertionSort(List<int> arr) {
     arr[j + 1] = key;
   }
 }
+
+void main() {
+  final arr = [7, 2, 8, 4, 1, 5];
+  insertionSort(arr);
+  print(arr);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def insertion_sort(arr):
@@ -97,6 +118,11 @@ def insertion_sort(arr):
             arr[j + 1] = arr[j]
             j -= 1
         arr[j + 1] = key
+
+
+arr = [7, 2, 8, 4, 1, 5]
+insertion_sort(arr)
+print(arr)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function insertionSort(arr) {
@@ -110,6 +136,10 @@ function insertionSort(arr) {
     arr[j + 1] = key;
   }
 }
+
+const arr = [7, 2, 8, 4, 1, 5];
+insertionSort(arr);
+console.log(arr);
 '''),
     ],
   ),
@@ -146,6 +176,12 @@ void quickSort(List<int> arr, int low, int high) {
   quickSort(arr, low, i);
   quickSort(arr, i + 2, high);
 }
+
+void main() {
+  final arr = [6, 1, 8, 3, 9, 2, 5];
+  quickSort(arr, 0, arr.length - 1);
+  print(arr);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def quick_sort(arr, low, high):
@@ -160,6 +196,11 @@ def quick_sort(arr, low, high):
     arr[i + 1], arr[high] = arr[high], arr[i + 1]
     quick_sort(arr, low, i)
     quick_sort(arr, i + 2, high)
+
+
+arr = [6, 1, 8, 3, 9, 2, 5]
+quick_sort(arr, 0, len(arr) - 1)
+print(arr)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function quickSort(arr, low, high) {
@@ -176,6 +217,10 @@ function quickSort(arr, low, high) {
   quickSort(arr, low, i);
   quickSort(arr, i + 2, high);
 }
+
+const arr = [6, 1, 8, 3, 9, 2, 5];
+quickSort(arr, 0, arr.length - 1);
+console.log(arr);
 '''),
     ],
   ),
@@ -212,6 +257,12 @@ void merge(List<int> arr, int low, int mid, int high) {
   while (i < left.length) arr[k++] = left[i++];
   while (j < right.length) arr[k++] = right[j++];
 }
+
+void main() {
+  final arr = [9, 4, 7, 1, 8, 2, 6];
+  mergeSort(arr, 0, arr.length - 1);
+  print(arr);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def merge_sort(arr, low, high):
@@ -243,6 +294,11 @@ def merge(arr, low, mid, high):
         arr[k] = right[j]
         j += 1
         k += 1
+
+
+arr = [9, 4, 7, 1, 8, 2, 6]
+merge_sort(arr, 0, len(arr) - 1)
+print(arr)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function mergeSort(arr, low, high) {
@@ -263,6 +319,10 @@ function merge(arr, low, mid, high) {
   while (i < left.length) arr[k++] = left[i++];
   while (j < right.length) arr[k++] = right[j++];
 }
+
+const arr = [9, 4, 7, 1, 8, 2, 6];
+mergeSort(arr, 0, arr.length - 1);
+console.log(arr);
 '''),
     ],
   ),
@@ -286,6 +346,11 @@ int linearSearch(List<int> arr, int target) {
   }
   return -1;
 }
+
+void main() {
+  final arr = [5, 2, 9, 1, 7, 3];
+  print(linearSearch(arr, 7));
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def linear_search(arr, target):
@@ -293,6 +358,10 @@ def linear_search(arr, target):
         if value == target:
             return i
     return -1
+
+
+arr = [5, 2, 9, 1, 7, 3]
+print(linear_search(arr, 7))
 '''),
       CodeSample(language: 'javascript', code: r'''
 function linearSearch(arr, target) {
@@ -301,6 +370,9 @@ function linearSearch(arr, target) {
   }
   return -1;
 }
+
+const arr = [5, 2, 9, 1, 7, 3];
+console.log(linearSearch(arr, 7));
 '''),
     ],
   ),
@@ -332,6 +404,11 @@ int binarySearch(List<int> arr, int target) {
   }
   return -1;
 }
+
+void main() {
+  final arr = [1, 3, 4, 6, 7, 9, 11, 14];
+  print(binarySearch(arr, 7));
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def binary_search(arr, target):
@@ -345,6 +422,10 @@ def binary_search(arr, target):
         else:
             high = mid - 1
     return -1
+
+
+arr = [1, 3, 4, 6, 7, 9, 11, 14]
+print(binary_search(arr, 7))
 '''),
       CodeSample(language: 'javascript', code: r'''
 function binarySearch(arr, target) {
@@ -357,6 +438,9 @@ function binarySearch(arr, target) {
   }
   return -1;
 }
+
+const arr = [1, 3, 4, 6, 7, 9, 11, 14];
+console.log(binarySearch(arr, 7));
 '''),
     ],
   ),
@@ -381,6 +465,15 @@ class Stack<T> {
   T get top => _items.last;
   bool get isEmpty => _items.isEmpty;
 }
+
+void main() {
+  final stack = Stack<int>();
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
+  print(stack.pop());
+  print(stack.top);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 class Stack:
@@ -392,6 +485,14 @@ class Stack:
 
     def pop(self):
         return self.items.pop()
+
+
+stack = Stack()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+print(stack.pop())
+print(stack.items[-1])
 '''),
       CodeSample(language: 'javascript', code: r'''
 class Stack {
@@ -400,6 +501,13 @@ class Stack {
   pop() { return this.#items.pop(); }
   get top() { return this.#items.at(-1); }
 }
+
+const stack = new Stack();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+console.log(stack.pop());
+console.log(stack.top);
 '''),
     ],
   ),
@@ -423,6 +531,15 @@ class Queue<T> {
   T dequeue() => _items.removeAt(0);
   bool get isEmpty => _items.isEmpty;
 }
+
+void main() {
+  final queue = Queue<int>();
+  queue.enqueue(1);
+  queue.enqueue(2);
+  queue.enqueue(3);
+  print(queue.dequeue());
+  print(queue.isEmpty);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 from collections import deque
@@ -436,6 +553,13 @@ class Queue:
 
     def dequeue(self):
         return self.items.popleft()
+
+
+queue = Queue()
+queue.enqueue(1)
+queue.enqueue(2)
+queue.enqueue(3)
+print(queue.dequeue())
 '''),
       CodeSample(language: 'javascript', code: r'''
 class Queue {
@@ -443,6 +567,12 @@ class Queue {
   enqueue(value) { this.#items.push(value); }
   dequeue() { return this.#items.shift(); }
 }
+
+const queue = new Queue();
+queue.enqueue(1);
+queue.enqueue(2);
+queue.enqueue(3);
+console.log(queue.dequeue());
 '''),
     ],
   ),
@@ -487,6 +617,15 @@ class LinkedList<T> {
     return value;
   }
 }
+
+void main() {
+  final list = LinkedList<int>();
+  list.addLast(1);
+  list.addLast(2);
+  list.addLast(3);
+  print(list.removeFirst());
+  print(list.head?.value);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 class Node:
@@ -511,6 +650,14 @@ class LinkedList:
         value = self.head.value
         self.head = self.head.next
         return value
+
+
+ll = LinkedList()
+ll.add_last(1)
+ll.add_last(2)
+ll.add_last(3)
+print(ll.remove_first())
+print(ll.head.value)
 '''),
       CodeSample(language: 'javascript', code: r'''
 class Node {
@@ -540,6 +687,13 @@ class LinkedList {
     return value;
   }
 }
+
+const list = new LinkedList();
+list.addLast(1);
+list.addLast(2);
+list.addLast(3);
+console.log(list.removeFirst());
+console.log(list.head.value);
 '''),
     ],
   ),
@@ -571,6 +725,16 @@ List<String> bfs(Map<String, List<String>> graph, String start) {
   }
   return visited;
 }
+
+void main() {
+  final graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C'],
+  };
+  print(bfs(graph, 'A'));
+}
 '''),
       CodeSample(language: 'python', code: r'''
 from collections import deque
@@ -585,6 +749,15 @@ def bfs(graph, start):
                 visited.append(neighbor)
                 queue.append(neighbor)
     return visited
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C'],
+}
+print(bfs(graph, 'A'))
 '''),
       CodeSample(language: 'javascript', code: r'''
 function bfs(graph, start) {
@@ -601,6 +774,14 @@ function bfs(graph, start) {
   }
   return visited;
 }
+
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D'],
+  C: ['A', 'D'],
+  D: ['B', 'C'],
+};
+console.log(bfs(graph, 'A'));
 '''),
     ],
   ),
@@ -626,6 +807,18 @@ void dfs(Map<String, List<String>> graph, String node, List<String> visited) {
     }
   }
 }
+
+void main() {
+  final graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C'],
+  };
+  final visited = <String>[];
+  dfs(graph, 'A', visited);
+  print(visited);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def dfs(graph, node, visited=None):
@@ -636,6 +829,15 @@ def dfs(graph, node, visited=None):
         if neighbor not in visited:
             dfs(graph, neighbor, visited)
     return visited
+
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C'],
+}
+print(dfs(graph, 'A'))
 '''),
       CodeSample(language: 'javascript', code: r'''
 function dfs(graph, node, visited = []) {
@@ -647,6 +849,14 @@ function dfs(graph, node, visited = []) {
   }
   return visited;
 }
+
+const graph = {
+  A: ['B', 'C'],
+  B: ['A', 'D'],
+  C: ['A', 'D'],
+  D: ['B', 'C'],
+};
+console.log(dfs(graph, 'A'));
 '''),
     ],
   ),
@@ -670,6 +880,20 @@ void preOrder(Node? node, void Function(int) visit) {
   preOrder(node.left, visit);
   preOrder(node.right, visit);
 }
+
+class Node {
+  final int value;
+  final Node? left;
+  final Node? right;
+  Node(this.value, [this.left, this.right]);
+}
+
+void main() {
+  final tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)));
+  final result = <int>[];
+  preOrder(tree, result.add);
+  print(result);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def pre_order(node, visit):
@@ -678,6 +902,19 @@ def pre_order(node, visit):
     visit(node.value)
     pre_order(node.left, visit)
     pre_order(node.right, visit)
+
+
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)))
+result = []
+pre_order(tree, result.append)
+print(result)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function preOrder(node, visit) {
@@ -686,6 +923,19 @@ function preOrder(node, visit) {
   preOrder(node.left, visit);
   preOrder(node.right, visit);
 }
+
+class Node {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+const tree = new Node(5, new Node(3, new Node(1), new Node(4)), new Node(8, new Node(7), new Node(9)));
+const result = [];
+preOrder(tree, (v) => result.push(v));
+console.log(result);
 '''),
     ],
   ),
@@ -710,6 +960,20 @@ void inOrder(Node? node, void Function(int) visit) {
   visit(node.value);
   inOrder(node.right, visit);
 }
+
+class Node {
+  final int value;
+  final Node? left;
+  final Node? right;
+  Node(this.value, [this.left, this.right]);
+}
+
+void main() {
+  final tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)));
+  final result = <int>[];
+  inOrder(tree, result.add);
+  print(result);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def in_order(node, visit):
@@ -718,6 +982,19 @@ def in_order(node, visit):
     in_order(node.left, visit)
     visit(node.value)
     in_order(node.right, visit)
+
+
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)))
+result = []
+in_order(tree, result.append)
+print(result)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function inOrder(node, visit) {
@@ -726,6 +1003,19 @@ function inOrder(node, visit) {
   visit(node.value);
   inOrder(node.right, visit);
 }
+
+class Node {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+const tree = new Node(5, new Node(3, new Node(1), new Node(4)), new Node(8, new Node(7), new Node(9)));
+const result = [];
+inOrder(tree, (v) => result.push(v));
+console.log(result);
 '''),
     ],
   ),
@@ -750,6 +1040,20 @@ void postOrder(Node? node, void Function(int) visit) {
   postOrder(node.right, visit);
   visit(node.value);
 }
+
+class Node {
+  final int value;
+  final Node? left;
+  final Node? right;
+  Node(this.value, [this.left, this.right]);
+}
+
+void main() {
+  final tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)));
+  final result = <int>[];
+  postOrder(tree, result.add);
+  print(result);
+}
 '''),
       CodeSample(language: 'python', code: r'''
 def post_order(node, visit):
@@ -758,6 +1062,19 @@ def post_order(node, visit):
     post_order(node.left, visit)
     post_order(node.right, visit)
     visit(node.value)
+
+
+class Node:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+tree = Node(5, Node(3, Node(1), Node(4)), Node(8, Node(7), Node(9)))
+result = []
+post_order(tree, result.append)
+print(result)
 '''),
       CodeSample(language: 'javascript', code: r'''
 function postOrder(node, visit) {
@@ -766,6 +1083,19 @@ function postOrder(node, visit) {
   postOrder(node.right, visit);
   visit(node.value);
 }
+
+class Node {
+  constructor(value, left = null, right = null) {
+    this.value = value;
+    this.left = left;
+    this.right = right;
+  }
+}
+
+const tree = new Node(5, new Node(3, new Node(1), new Node(4)), new Node(8, new Node(7), new Node(9)));
+const result = [];
+postOrder(tree, (v) => result.push(v));
+console.log(result);
 '''),
     ],
   ),
